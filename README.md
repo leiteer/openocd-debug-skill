@@ -8,14 +8,24 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/AI-Powered-blue?style=flat-square" alt="AI Powered">
-  <img src="https://img.shields.io/badge/WorkBuddy-Skill-green?style=flat-square" alt="WorkBuddy Skill">
+  <img src="https://img.shields.io/badge/Universal-Compatible-green?style=flat-square" alt="Universal Compatible">
   <img src="https://img.shields.io/badge/Cortex-M-RISC--V-orange?style=flat-square" alt="Cortex-M">
   <img src="https://img.shields.io/github/license/leiteer/openocd-debug-skill?style=flat-square" alt="MIT License">
 </p>
 
 <p align="center">
   <strong>🤖 AI-Driven Embedded Debugging | AI 驱动的嵌入式调试</strong><br>
-  Let AI handle the hardware debugging, so you can focus on building great firmware.
+  A universal OpenOCD knowledge base that empowers <strong>ANY AI assistant</strong> to debug embedded hardware.<br>
+  通用的 OpenOCD 知识库，让<strong>任何 AI 助手</strong>都能调试嵌入式硬件。
+</p>
+
+<p align="center">
+  <strong>✅ Compatible with | 兼容:</strong>
+  <img src="https://img.shields.io/badge/WorkBuddy-00A86B?style=flat&logo=robot" alt="WorkBuddy">
+  <img src="https://img.shields.io/badge/Claude-CC785C?style=flat&logo=anthropic" alt="Claude">
+  <img src="https://img.shields.io/badge/ChatGPT-74AA9C?style=flat&logo=openai" alt="ChatGPT">
+  <img src="https://img.shields.io/badge/Copilot-0078D4?style=flat&logo=githubcopilot" alt="Copilot">
+  <img src="https://img.shields.io/badge/Any_AI-Agent-6B46E8?style=flat" alt="Any AI Agent">
 </p>
 
 ---
@@ -80,7 +90,7 @@ AI:
 ```
 You: "Show me all GPIOA registers on this STM32H7."
 AI:
-  → Reads GPIA_CRL/CRH/IDR/ODR/BSRR/BRR/LCKR
+  → Reads GPIOA_CRL/CRH/IDR/ODR/BSRR/BRR/LCKR
   → Displays in hex + binary + bit-field table
   → Highlights which pins are input/output
 ```
@@ -145,7 +155,48 @@ With this skill, AI becomes your **embedded expert**:
 - ✅ **4 Debug Workflows**: Flash firmware, Read registers, Mass erase, GDB debug
 - ✅ **Fault Diagnosis**: Auto-decode HardFault/MemFault/BusFault/UsageFault
 - ✅ **TCL Automation**: Custom scripts for batch operations
-- ✅ **AI-Native**: Designed for AI agents (WorkBuddy, etc.)
+- ✅ **AI-Native**: Structured knowledge base for ANY AI assistant
+
+---
+
+### 🤖 How to Use with AI Assistants | 如何在 AI 助手上使用
+
+This is a **universal knowledge base** - any AI can use it!
+
+#### Method 1: Clone and Let AI Read | 方法 1：克隆并让 AI 读取
+
+```bash
+# Clone this repo
+git clone https://github.com/leiteer/openocd-debug-skill.git
+
+# Then tell your AI:
+# "Read the SKILL.md file in openocd-debug-skill/ and help me debug my STM32F103"
+```
+
+#### Method 2: Copy to AI's Knowledge Base | 方法 2：复制到 AI 的知识库
+
+**WorkBuddy**:
+```bash
+cp -r openocd-debug-skill ~/.workbuddy/skills/
+```
+
+**Claude Projects / ChatGPT Projects**:
+1. Upload `SKILL.md` and `references/*.md` to your Project's knowledge base
+2. Ask: "Use the OpenOCD debug knowledge to help me flash my firmware"
+
+**Local AI Agents (AutoGPT, LangChain, etc.)**:
+```python
+# Load SKILL.md as system prompt context
+with open('openocd-debug-skill/SKILL.md', 'r') as f:
+    system_context = f.read()
+```
+
+#### Method 3: Direct Question | 方法 3：直接提问
+
+Even without installing, you can:
+1. Open `SKILL.md` or `docs/en-us.md`
+2. Copy the relevant section
+3. Paste into ANY AI chat with your question
 
 ---
 
@@ -155,14 +206,17 @@ With this skill, AI becomes your **embedded expert**:
 
 1. **OpenOCD** (v0.11.0+)
    ```bash
-   # Zephyr SDK (if using Zephyr)
-   # Already installed at D:/Zephyr/zephyr-sdk-0.16.8/
-
-   # Or install via Chocolatey
+   # Install via package manager
+   # macOS:
+   brew install openocd
+   
+   # Linux:
+   sudo apt install openocd
+   
+   # Windows:
    choco install openocd
-
-   # Or download from
-   # https://openocd.org
+   
+   # Or download from: https://openocd.org
    ```
 
 2. **Debug Probe Driver**
@@ -170,11 +224,18 @@ With this skill, AI becomes your **embedded expert**:
    - J-Link: Install J-Link Software Package
    - CMSIS-DAP: No driver needed (HID)
 
-#### Install Skill in WorkBuddy | 在 WorkBuddy 中安装技能
+#### Quick Install for AI Agents | AI 代理快速安装
 
 ```bash
+# WorkBuddy
 cd ~/.workbuddy/skills/
 git clone https://github.com/leiteer/openocd-debug-skill.git
+
+# Claude Projects (manual upload)
+# Upload all .md files to Project Knowledge
+
+# ChatGPT Projects (manual upload)
+# Upload all .md files to Project Files
 ```
 
 ---
@@ -260,7 +321,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 - **GitHub Issues**: https://github.com/leiteer/openocd-debug-skill/issues
 - **OpenOCD Documentation**: http://openocd.org/doc/doxygen/index.html
-- **WorkBuddy Community**: https://workbuddy.ai/community
 
 ---
 
@@ -268,14 +328,24 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 <p align="center">
   <img src="https://img.shields.io/badge/AI-驱动-blue?style=flat-square" alt="AI 驱动">
-  <img src="https://img.shields.io/badge/WorkBuddy-技能-green?style=flat-square" alt="WorkBuddy 技能">
+  <img src="https://img.shields.io/badge/通用-兼容-green?style=flat-square" alt="通用兼容">
   <img src="https://img.shields.io/badge/Cortex-M-RISC--V-orange?style=flat-square" alt="Cortex-M">
   <img src="https://img.shields.io/github/license/leiteer/openocd-debug-skill?style=flat-square" alt="MIT 许可证">
 </p>
 
 <p align="center">
   <strong>🤖 AI 驱动的嵌入式调试 | 让 AI 帮你搞定硬件调试</strong><br>
+  通用的 OpenOCD 知识库，让<strong>任何 AI 助手</strong>都能调试嵌入式硬件。<br>
   从硬件调试到软件优化，AI 一站式解决。
+</p>
+
+<p align="center">
+  <strong>✅ 兼容 AI 平台 | Compatible with:</strong>
+  <img src="https://img.shields.io/badge/WorkBuddy-00A86B?style=flat&logo=robot" alt="WorkBuddy">
+  <img src="https://img.shields.io/badge/Claude-CC785C?style=flat&logo=anthropic" alt="Claude">
+  <img src="https://img.shields.io/badge/ChatGPT-74AA9C?style=flat&logo=openai" alt="ChatGPT">
+  <img src="https://img.shields.io/badge/Copilot-0078D4?style=flat&logo=githubcopilot" alt="Copilot">
+  <img src="https://img.shields.io/badge/任何AI代理-6B46E8?style=flat" alt="任何 AI 代理">
 </p>
 
 ---
@@ -405,7 +475,48 @@ AI:
 - ✅ **4 大调试工作流**: 烧录固件、读取寄存器、批量擦除、GDB 调试
 - ✅ **故障诊断**: 自动解码 HardFault/MemFault/BusFault/UsageFault
 - ✅ **TCL 自动化**: 自定义脚本进行批量操作
-- ✅ **AI 原生**: 为 AI 代理（WorkBuddy 等）设计
+- ✅ **AI 原生**: 为任何 AI 助手设计的结构化知识库
+
+---
+
+### 🤖 如何在 AI 助手上使用
+
+这是一个**通用知识库** - 任何 AI 都能用！
+
+#### 方法 1：克隆并让 AI 读取 | Method 1: Clone and Let AI Read
+
+```bash
+# 克隆仓库
+git clone https://github.com/leiteer/openocd-debug-skill.git
+
+# 然后告诉你的 AI：
+# "读取 openocd-debug-skill/ 中的 SKILL.md 文件，帮我调试 STM32F103"
+```
+
+#### 方法 2：复制到 AI 的知识库 | Method 2: Copy to AI's Knowledge Base
+
+**WorkBuddy**:
+```bash
+cp -r openocd-debug-skill ~/.workbuddy/skills/
+```
+
+**Claude Projects / ChatGPT Projects**:
+1. 上传 `SKILL.md` 和 `references/*.md` 到你的 Project 知识库
+2. 提问："使用 OpenOCD 调试知识帮我烧录固件"
+
+**本地 AI 代理 (AutoGPT, LangChain 等)**:
+```python
+# 加载 SKILL.md 作为系统提示上下文
+with open('openocd-debug-skill/SKILL.md', 'r') as f:
+    system_context = f.read()
+```
+
+#### 方法 3：直接提问 | Method 3: Direct Question
+
+即使不安装，你也可以：
+1. 打开 `SKILL.md` 或 `docs/zh-cn.md`
+2. 复制相关章节
+3. 粘贴到任何 AI 聊天框并提问
 
 ---
 
@@ -415,14 +526,16 @@ AI:
 
 1. **OpenOCD**（v0.11.0+）
    ```bash
-   # Zephyr SDK（如果使用 Zephyr）
-   # 已安装在 D:/Zephyr/zephyr-sdk-0.16.8/
-
-   # 或者通过 Chocolatey 安装
+   # macOS:
+   brew install openocd
+   
+   # Linux:
+   sudo apt install openocd
+   
+   # Windows:
    choco install openocd
-
-   # 或者从以下地址下载
-   # https://openocd.org
+   
+   # 或者从以下地址下载：https://openocd.org
    ```
 
 2. **调试探针驱动**
@@ -430,11 +543,18 @@ AI:
    - J-Link: 安装 J-Link Software Package
    - CMSIS-DAP: 无需驱动（HID）
 
-#### 在 WorkBuddy 中安装技能
+#### AI 代理快速安装
 
 ```bash
+# WorkBuddy
 cd ~/.workbuddy/skills/
 git clone https://github.com/leiteer/openocd-debug-skill.git
+
+# Claude Projects (手动上传)
+# 上传所有 .md 文件到 Project Knowledge
+
+# ChatGPT Projects (手动上传)
+# 上传所有 .md 文件到 Project Files
 ```
 
 ---
@@ -520,11 +640,10 @@ MIT 许可证 - 详见 [LICENSE](LICENSE)。
 
 - **GitHub Issues**: https://github.com/leiteer/openocd-debug-skill/issues
 - **OpenOCD 文档**: http://openocd.org/doc/doxygen/index.html
-- **WorkBuddy 社区**: https://workbuddy.ai/community
 
 ---
 
 <p align="center">
-  <strong>🤖 Made for AI, by AI, with ❤️ for embedded developers.</strong><br>
-  <strong>🤖 为 AI 而生，由 AI 制作，为嵌入式开发者献上 ❤️。</strong>
+  <strong>🤖 Made for ANY AI, by AI, with ❤️ for embedded developers.</strong><br>
+  <strong>🤖 为任何 AI 而生，由 AI 制作，为嵌入式开发者献上 ❤️。</strong>
 </p>
