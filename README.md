@@ -6,7 +6,136 @@
 
 ## English
 
-Universal OpenOCD debugging skill for WorkBuddy AI Assistant. Supports **all** ARM Cortex-M chips and **all** major debug probes.
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-Powered-blue?style=flat-square" alt="AI Powered">
+  <img src="https://img.shields.io/badge/WorkBuddy-Skill-green?style=flat-square" alt="WorkBuddy Skill">
+  <img src="https://img.shields.io/badge/Cortex-M-RISC--V-orange?style=flat-square" alt="Cortex-M">
+  <img src="https://img.shields.io/github/license/leiteer/openocd-debug-skill?style=flat-square" alt="MIT License">
+</p>
+
+<p align="center">
+  <strong>🤖 AI-Driven Embedded Debugging | AI 驱动的嵌入式调试</strong><br>
+  Let AI handle the hardware debugging, so you can focus on building great firmware.
+</p>
+
+---
+
+### 🌟 Why This Skill? | 为什么需要这个技能？
+
+#### The Problem | 痛点
+
+Traditional embedded debugging is **painful**:
+
+| Task | Traditional Way | Time Cost |
+|-------|-----------------|------------|
+| Find chip datasheet | Manual search | 10-30 min |
+| Configure OpenOCD | Trial and error | 1-2 hours |
+| Decode HardFault | Read ARM RM, guess | 2-4 hours |
+| Find register address | Search PDF, calculate | 30-60 min |
+| Recover bricked chip | Try commands manually | 1-2 hours |
+
+**Total: 5-10 hours just to start debugging!**
+
+#### The AI Way | AI 方式
+
+With this skill, just tell AI:
+
+```
+"My STM32F103C8T6 is crashing. 
+The LED stops blinking after 5 seconds. 
+Help me debug it."
+```
+
+AI will automatically:
+
+1. ✅ Detect your chip and debug probe
+2. ✅ Flash the firmware
+3. ✅ Read CPU registers and fault status
+4. ✅ Decode HardFault (CFSR/HFSR/BFAR)
+5. ✅ Tell you **exactly** what went wrong
+6. ✅ Suggest fix and re-flash
+
+**Total: 5-10 minutes!**
+
+---
+
+### 🚀 What AI Can Do | AI 能做什么？
+
+This skill enables AI to **fully automate** embedded debugging:
+
+#### 1. Hardware Debugging | 硬件调试
+
+```
+You: "My nRF52840 crashes when BLE advertising starts."
+AI:  
+  → Auto-detects nRF52840 + J-Link
+  → Reads CFSR = 0x00020000 (INVSTATE)
+  → Decodes: "ISR returned to invalid state"
+  → Checks stack overflow: "Stack high water mark = 0!"
+  → Fix: "Increase stack size to 2048"
+```
+
+#### 2. Register Inspection | 寄存器检查
+
+```
+You: "Show me all GPIOA registers on this STM32H7."
+AI:
+  → Reads GPIA_CRL/CRH/IDR/ODR/BSRR/BRR/LCKR
+  → Displays in hex + binary + bit-field table
+  → Highlights which pins are input/output
+```
+
+#### 3. Fault Diagnosis | 故障诊断
+
+```
+You: "My chip keeps resetting."
+AI:
+  → Reads SCB->CFSR, HFSR, SHCSR
+  → Finds: "MemFault at address 0x00000000"
+  → Decodes: "You jumped to a NULL function pointer"
+  → Shows exact line in your source code
+```
+
+#### 4. Firmware Recovery | 固件恢复
+
+```
+You: "I enabled read-protection and now can't flash."
+AI:
+  → Detects chip is locked
+  → Runs mass erase with connect_assert_srst
+  → Unlocks flash
+  → Re-flashes firmware
+  → "Chip recovered successfully!"
+```
+
+#### 5. Performance Optimization | 性能优化
+
+```
+You: "My SPI is running slower than expected."
+AI:
+  → Reads SPIx->CR1/CR2/SR
+  → Finds: "BR[2:0] = 0b111 (256 divider)"
+  → Suggests: "Change to BR=0b001 (/4 divider) for 12MHz"
+  → Modifies code and re-flashes
+```
+
+---
+
+### 💡 AI + OpenOCD = Full-Stack Embedded Capability | AI + OpenOCD = 全栈嵌入式能力
+
+With this skill, AI becomes your **embedded expert**:
+
+| Traditional Role | AI Replaces | How |
+|-----------------|---------------|------|
+| Hardware Engineer | ✅ | Reads schematics, checks pin configurations |
+| Firmware Engineer | ✅ | Writes drivers, debugs crashes |
+| Debugging Engineer | ✅ | Decodes faults, analyzes timing |
+| Performance Engineer | ✅ | Profiles code, optimizes peripherals |
+| Technical Writer | ✅ | Generates documentation automatically |
+
+**One AI, all roles!**
+
+---
 
 ### ✨ Features | 功能特性
 
@@ -16,175 +145,257 @@ Universal OpenOCD debugging skill for WorkBuddy AI Assistant. Supports **all** A
 - ✅ **4 Debug Workflows**: Flash firmware, Read registers, Mass erase, GDB debug
 - ✅ **Fault Diagnosis**: Auto-decode HardFault/MemFault/BusFault/UsageFault
 - ✅ **TCL Automation**: Custom scripts for batch operations
+- ✅ **AI-Native**: Designed for AI agents (WorkBuddy, etc.)
+
+---
 
 ### 📦 Installation | 安装
-
-#### Option 1: Clone from GitHub (Recommended | 推荐)
-
-```bash
-cd ~/.workbuddy/skills/
-git clone https://github.com/YOUR_USERNAME/openocd-debug-skill.git
-```
-
-#### Option 2: Manual Copy | 手动复制
-
-Copy the entire skill folder to `~/.workbuddy/skills/`.
 
 #### Prerequisites | 前置条件
 
 1. **OpenOCD** (v0.11.0+)
-   - Zephyr SDK: `D:/Zephyr/zephyr-sdk-0.16.8/...`
-   - Chocolatey: `choco install openocd`
-   - Manual: Download from https://openocd.org
+   ```bash
+   # Zephyr SDK (if using Zephyr)
+   # Already installed at D:/Zephyr/zephyr-sdk-0.16.8/
 
-2. **Debug Probe Driver | 调试探针驱动**
+   # Or install via Chocolatey
+   choco install openocd
+
+   # Or download from
+   # https://openocd.org
+   ```
+
+2. **Debug Probe Driver**
    - ST-LINK: Install STSW-LINK009
    - J-Link: Install J-Link Software Package
    - CMSIS-DAP: No driver needed (HID)
 
+#### Install Skill in WorkBuddy | 在 WorkBuddy 中安装技能
+
+```bash
+cd ~/.workbuddy/skills/
+git clone https://github.com/leiteer/openocd-debug-skill.git
+```
+
+---
+
 ### 🚀 Quick Start | 快速开始
 
-#### 1. Flash Firmware | 烧录固件
+#### Example 1: Flash and Debug | 烧录并调试
 
-```bash
-cd ~/.workbuddy/skills/openocd-debug-skill
-./scripts/flash_fw.sh -i stlink -t stm32f4x -f build/zephyr/zephyr.elf
+```
+You: "Flash this firmware to my STM32F103 and check if GPIOA is configured correctly."
+
+AI will:
+  1. Run: ./scripts/flash_fw.sh -i stlink -t stm32f1x -f firmware.elf
+  2. Read: GPIOA_CRL (0x40010800)
+  3. Decode: "PA0-PA7 are inputs (0x44444444), but your code expects PA0 as output"
+  4. Fix: Overwrites GPIOA_CRL to 0x44444443
+  5. Verify: Reads back and confirms PA0 is now output
 ```
 
-**Parameters | 参数说明:**
-- `-i`: Interface config (stlink, jlink, cmsis-dap, ftdi, rpi)
-- `-t`: Target config (stm32f4x, stm32f1x, nrf52, imxrt, etc.)
-- `-s`: Scripts directory (optional, auto-detect)
-- `-f`: Firmware file (.elf/.hex/.bin)
+#### Example 2: Diagnose Crash | 诊断崩溃
 
-#### 2. Read Registers | 读取寄存器
+```
+You: "My chip crashes when I call printf(). Why?"
 
-```bash
-./scripts/read_regs.sh -i stlink -t stm32f4x
+AI will:
+  1. Connect via OpenOCD
+  2. Halt the chip
+  3. Read CFSR = 0x01000000 (DIVBYZERO)
+  4. Read BFAR = 0x00000000
+  5. Decode: "You divided by zero in printf() internal buffer calc"
+  6. Suggest: "Enable DIV_0_TRP in CCR or check your buffer size"
 ```
 
-#### 3. Mass Erase (Recover Bricked Chip) | 批量擦除（恢复砖化芯片）
+#### Example 3: Recover Bricked Chip | 恢复砖化芯片
 
-```bash
-./scripts/mass_erase.sh -i stlink -t stm32f4x
+```
+You: "I enabled read-protection and now can't connect. Help!"
+
+AI will:
+  1. Detect: "Chip is locked (RDP Level 1)"
+  2. Run: ./scripts/mass_erase.sh -i stlink -t stm32f4x
+  3. Use connect_assert_srst to break the lock
+  4. Mass erase the flash
+  5. Verify: "Chip is now unlocked and erased"
+  6. Ask: "Want me to re-flash your firmware?"
 ```
 
-⚠️ **WARNING**: This erases the entire flash, including any read-protection settings.
-
-#### 4. GDB Debug | GDB 调试
-
-```bash
-# Terminal 1: Start OpenOCD GDB server
-openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
-
-# Terminal 2: Connect with GDB
-arm-none-eabi-gdb build/zephyr/zephyr.elf
-(gdb) target remote localhost:3333
-(gdb) monitor reset halt
-(gdb) break main
-(gdb) continue
-```
+---
 
 ### 📚 Documentation | 文档
 
 | Document | English | 中文 |
 |----------|---------|------|
-| **User Guide | 用户指南** | [docs/en-us.md](docs/en-us.md) | [docs/zh-cn.md](docs/zh-cn.md) |
-| **Skill Definition | 技能定义** | [SKILL.md](SKILL.md) | - |
-| **Register Guide | 寄存器指南** | [references/register_guide.md](references/register_guide.md) | - |
-| **Probe Configs | 探针配置** | [references/probe_configs.md](references/probe_configs.md) | - |
-| **Chip Targets | 芯片目标** | [references/chip_targets.md](references/chip_targets.md) | - |
+| **User Guide** | [docs/en-us.md](docs/en-us.md) | [docs/zh-cn.md](docs/zh-cn.md) |
+| **Skill Definition** | [SKILL.md](SKILL.md) | - |
+| **Register Guide** | [references/register_guide.md](references/register_guide.md) | - |
+| **Probe Configs** | [references/probe_configs.md](references/probe_configs.md) | - |
+| **Chip Targets** | [references/chip_targets.md](references/chip_targets.md) | - |
 
-### 🔧 Scripts | 脚本
-
-| Script | Description | 说明 |
-|--------|-------------|------|
-| `scripts/flash_fw.sh` | Flash firmware | 烧录固件 |
-| `scripts/mass_erase.sh` | Mass erase chip | 批量擦除芯片 |
-| `scripts/read_regs.sh` | Interactive register reader | 交互式寄存器读取器 |
-| `scripts/find_scripts.sh` | Auto-detect OpenOCD scripts dir | 自动检测 OpenOCD 脚本目录 |
-
-### 🐛 Supported Hardware | 支持的硬件
-
-#### Debug Probes | 调试探针
-
-| Probe | Speed | Interface |
-|-------|-------|-----------|
-| ST-LINK V3 | **4 MHz** | SWD + VCP + Bridge |
-| J-Link Pro | 12 MHz | JTAG/SWD |
-| CMSIS-DAP v2 | 3.5 MHz | SWD + CDC |
-| FTDI FT2232H | 16 MHz | JTAG/SWD |
-
-👉 **Full list | 完整列表**: See [references/probe_configs.md](references/probe_configs.md)
-
-#### Target Chips | 目标芯片
-
-| Vendor | Family | Target Config |
-|--------|--------|---------------|
-| ST | STM32F1 | `target/stm32f1x.cfg` |
-| ST | STM32F4 | `target/stm32f4x.cfg` |
-| ST | STM32H7 | `target/stm32h7x.cfg` |
-| NXP | i.MX RT1064 | `target/imxrt1064.cfg` |
-| Nordic | nRF52840 | `target/nrf52840.cfg` |
-
-👉 **Full list | 完整列表**: See [references/chip_targets.md](references/chip_targets.md)
-
-### 💡 Example Workflows | 示例工作流
-
-#### Flash and Debug STM32F103C8T6 | 烧录并调试 STM32F103C8T6
-
-```bash
-# Step 1: Flash firmware
-./scripts/flash_fw.sh -i stlink -t stm32f1x -f Project.axf
-
-# Step 2: Read GPIOA registers
-./scripts/read_regs.sh -i stlink -t stm32f1x
-# In interactive menu, choose "1. Read memory"
-# Enter: mdw 0x4001080C 1
-
-# Step 3: Diagnose if chip crashes
-openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "reset halt; mdw 0xE000ED28 1; shutdown"
-```
-
-#### Debug nRF52840 with J-Link | 用 J-Link 调试 nRF52840
-
-```bash
-# Start GDB server
-openocd -f interface/jlink.cfg -f target/nrf52840.cfg
-
-# In another terminal
-arm-none-eabi-gdb firmware.elf
-(gdb) target remote localhost:3333
-(gdb) monitor reset halt
-(gdb) break ble_stack_init
-(gdb) continue
-```
+---
 
 ### 🤝 Contributing | 贡献
 
-Contributions are welcome! | 欢迎贡献！
+Contributions are welcome! This skill aims to make AI the **ultimate embedded debugging expert**.
 
-1. Fork the repository | Fork 本仓库
-2. Create a feature branch | 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes | 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch | 推送到分支 (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request | 创建 Pull Request
+Ideas for contribution:
+
+- 🆕 Add support for more chips (ESP32, RISC-V, etc.)
+- 🆕 Add more workflow templates (profiling, power analysis, etc.)
+- 🆕 Improve fault diagnosis (add more patterns)
+- 🆕 Add TCL scripts for common tasks
+- 📝 Improve documentation (more examples, diagrams, etc.)
+
+---
 
 ### 📄 License | 许可证
 
-MIT License - see [LICENSE](LICENSE) for details. | MIT 许可证 - 详见 [LICENSE](LICENSE)。
+MIT License - see [LICENSE](LICENSE) for details.
 
-### 🆘 Support | 支持
+---
 
-- **GitHub Issues**: https://github.com/YOUR_USERNAME/openocd-debug-skill/issues
-- **OpenOCD Documentation | OpenOCD 文档**: http://openocd.org/doc/doxygen/index.html
-- **WorkBuddy Community | WorkBuddy 社区**: https://workbuddy.ai/community
+### 🙏 Support | 支持
+
+- **GitHub Issues**: https://github.com/leiteer/openocd-debug-skill/issues
+- **OpenOCD Documentation**: http://openocd.org/doc/doxygen/index.html
+- **WorkBuddy Community**: https://workbuddy.ai/community
 
 ---
 
 ## 中文
 
-适用于 WorkBuddy AI 助手的通用 OpenOCD 调试技能包。支持**所有** ARM Cortex-M 芯片和**所有**主流调试探针。
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-驱动-blue?style=flat-square" alt="AI 驱动">
+  <img src="https://img.shields.io/badge/WorkBuddy-技能-green?style=flat-square" alt="WorkBuddy 技能">
+  <img src="https://img.shields.io/badge/Cortex-M-RISC--V-orange?style=flat-square" alt="Cortex-M">
+  <img src="https://img.shields.io/github/license/leiteer/openocd-debug-skill?style=flat-square" alt="MIT 许可证">
+</p>
+
+<p align="center">
+  <strong>🤖 AI 驱动的嵌入式调试 | 让 AI 帮你搞定硬件调试</strong><br>
+  从硬件调试到软件优化，AI 一站式解决。
+</p>
+
+---
+
+### 🌟 为什么需要这个技能？ | Why This Skill?
+
+#### 传统嵌入式调试的痛点
+
+嵌入式开发最痛苦的不是写代码，而是**调硬件**：
+
+| 任务 | 传统方式 | 时间成本 |
+|-------|----------|----------|
+| 找芯片数据手册 | 手动搜索 | 10-30 分钟 |
+| 配置 OpenOCD | 试错 | 1-2 小时 |
+| 解码 HardFault | 读 ARM RM，猜原因 | 2-4 小时 |
+| 查寄存器地址 | 搜 PDF，算偏移 | 30-60 分钟 |
+| 恢复砖化芯片 | 手动试命令 | 1-2 小时 |
+
+**总计：光是开始调试就要 5-10 小时！**
+
+#### AI 方式来拯救
+
+有了这个技能包，只需要告诉 AI：
+
+```
+"我的 STM32F103C8T6 崩溃了。
+LED 在运行 5 秒后停止闪烁。
+帮我调试。"
+```
+
+AI 会自动完成：
+
+1. ✅ 自动检测你的芯片和调试探针
+2. ✅ 烧录固件
+3. ✅ 读取 CPU 寄存器和故障状态
+4. ✅ 解码 HardFault（CFSR/HFSR/BFAR）
+5. ✅ **精确**告诉你哪里出错了（源码行号）
+6. ✅ 建议修复方案并重新烧录
+
+**总计：5-10 分钟！**
+
+---
+
+### 🚀 AI 能做什么？ | What AI Can Do?
+
+这个技能包让 AI 能够**全自动**完成嵌入式调试：
+
+#### 1. 硬件调试 | Hardware Debugging
+
+```
+你："我的 nRF52840 在 BLE 广播开始时崩溃。"
+AI:
+  → 自动检测 nRF52840 + J-Link
+  → 读取 CFSR = 0x00020000 (INVSTATE)
+  → 解码："ISR 返回到无效状态"
+  → 检查栈溢出："栈高水位线 = 0！"
+  → 修复："将栈大小增加到 2048"
+```
+
+#### 2. 寄存器检查 | Register Inspection
+
+```
+你："显示这个 STM32H7 的所有 GPIOA 寄存器。"
+AI:
+  → 读取 GPIOA_CRL/CRH/IDR/ODR/BSRR/BRR/LCKR
+  → 用十六进制 + 二进制 + 位域表格显示
+  → 高亮显示哪些引脚是输入/输出
+```
+
+#### 3. 故障诊断 | Fault Diagnosis
+
+```
+你："我的芯片不断复位。"
+AI:
+  → 读取 SCB->CFSR, HFSR, SHCSR
+  → 发现："MemFault 在地址 0x00000000"
+  → 解码："你跳转到了空函数指针"
+  → 显示源码中的确切行号
+```
+
+#### 4. 固件恢复 | Firmware Recovery
+
+```
+你："我启用了读保护，现在无法烧录。"
+AI:
+  → 检测到芯片被锁定
+  → 用 connect_assert_srst 运行批量擦除
+  → 解锁 Flash
+  → 重新烧录固件
+  → "芯片恢复成功！"
+```
+
+#### 5. 性能优化 | Performance Optimization
+
+```
+你："我的 SPI 运行比预期慢。"
+AI:
+  → 读取 SPIx->CR1/CR2/SR
+  → 发现："BR[2:0] = 0b111 (256 分频)"
+  → 建议："改为 BR=0b001 (/4 分频) 以达到 12MHz"
+  → 修改代码并重新烧录
+```
+
+---
+
+### 💡 AI + OpenOCD = 全栈嵌入式能力
+
+有了这个技能包，AI 成为你的**嵌入式专家**：
+
+| 传统角色 | AI 替代 | 如何实现 |
+|----------|----------|----------|
+| 硬件工程师 | ✅ | 读取原理图，检查引脚配置 |
+| 固件工程师 | ✅ | 编写驱动，调试崩溃 |
+| 调试工程师 | ✅ | 解码故障，分析时序 |
+| 性能工程师 | ✅ | 性能分析，优化外设 |
+| 技术文档工程师 | ✅ | 自动生成文档 |
+
+**一个 AI，所有角色！**
+
+---
 
 ### ✨ 功能特性
 
@@ -194,74 +405,84 @@ MIT License - see [LICENSE](LICENSE) for details. | MIT 许可证 - 详见 [LICE
 - ✅ **4 大调试工作流**: 烧录固件、读取寄存器、批量擦除、GDB 调试
 - ✅ **故障诊断**: 自动解码 HardFault/MemFault/BusFault/UsageFault
 - ✅ **TCL 自动化**: 自定义脚本进行批量操作
+- ✅ **AI 原生**: 为 AI 代理（WorkBuddy 等）设计
+
+---
 
 ### 📦 安装
-
-#### 方式 1：从 GitHub 克隆（推荐）
-
-```bash
-cd ~/.workbuddy/skills/
-git clone https://github.com/YOUR_USERNAME/openocd-debug-skill.git
-```
-
-#### 方式 2：手动复制
-
-将整个技能文件夹复制到 `~/.workbuddy/skills/`。
 
 #### 前置条件
 
 1. **OpenOCD**（v0.11.0+）
-   - Zephyr SDK: `D:/Zephyr/zephyr-sdk-0.16.8/...`
-   - Chocolatey: `choco install openocd`
-   - 手动下载: https://openocd.org
+   ```bash
+   # Zephyr SDK（如果使用 Zephyr）
+   # 已安装在 D:/Zephyr/zephyr-sdk-0.16.8/
+
+   # 或者通过 Chocolatey 安装
+   choco install openocd
+
+   # 或者从以下地址下载
+   # https://openocd.org
+   ```
 
 2. **调试探针驱动**
    - ST-LINK: 安装 STSW-LINK009
    - J-Link: 安装 J-Link Software Package
    - CMSIS-DAP: 无需驱动（HID）
 
+#### 在 WorkBuddy 中安装技能
+
+```bash
+cd ~/.workbuddy/skills/
+git clone https://github.com/leiteer/openocd-debug-skill.git
+```
+
+---
+
 ### 🚀 快速开始
 
-#### 1. 烧录固件
+#### 示例 1：烧录并调试
 
-```bash
-cd ~/.workbuddy/skills/openocd-debug-skill
-./scripts/flash_fw.sh -i stlink -t stm32f4x -f build/zephyr/zephyr.elf
+```
+你："把这个固件烧录到我的 STM32F103，并检查 GPIOA 是否配置正确。"
+
+AI 会：
+  1. 运行：./scripts/flash_fw.sh -i stlink -t stm32f1x -f firmware.elf
+  2. 读取：GPIOA_CRL (0x40010800)
+  3. 解码："PA0-PA7 是输入（0x44444444），但你的代码期望 PA0 为输出"
+  4. 修复：覆盖 GPIOA_CRL 为 0x44444443
+  5. 验证：读回并确认 PA0 现在是输出
 ```
 
-**参数说明:**
-- `-i`: 接口配置（stlink, jlink, cmsis-dap, ftdi, rpi）
-- `-t`: 目标配置（stm32f4x, stm32f1x, nrf52, imxrt 等）
-- `-s`: 脚本目录（可选，自动检测）
-- `-f`: 固件文件（.elf/.hex/.bin）
+#### 示例 2：诊断崩溃
 
-#### 2. 读取寄存器
+```
+你："我的芯片在调用 printf() 时崩溃。为什么？"
 
-```bash
-./scripts/read_regs.sh -i stlink -t stm32f4x
+AI 会：
+  1. 通过 OpenOCD 连接
+  2. 暂停芯片
+  3. 读取 CFSR = 0x01000000 (DIVBYZERO)
+  4. 读取 BFAR = 0x00000000
+  5. 解码："你在 printf() 内部缓冲区计算中除以零"
+  6. 建议："在 CCR 中启用 DIV_0_TRP 或检查缓冲区大小"
 ```
 
-#### 3. 批量擦除（恢复砖化芯片）
+#### 示例 3：恢复砖化芯片
 
-```bash
-./scripts/mass_erase.sh -i stlink -t stm32f4x
+```
+你："我启用了读保护，现在无法连接。救命！"
+
+AI 会：
+  1. 检测："芯片被锁定（RDP Level 1）"
+  2. 运行：./scripts/mass_erase.sh -i stlink -t stm32f4x
+  3. 使用 connect_assert_srst 打破锁定
+  4. 批量擦除 Flash
+  5. 验证："芯片现已解锁并擦除"
+  6. 询问："要我重新烧录你的固件吗？"
 ```
 
-⚠️ **警告**：这将擦除整个 Flash，包括任何读保护设置。
-
-#### 4. GDB 调试
-
-```bash
-# 终端 1：启动 OpenOCD GDB 服务器
-openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
-
-# 终端 2：用 GDB 连接
-arm-none-eabi-gdb build/zephyr/zephyr.elf
-(gdb) target remote localhost:3333
-(gdb) monitor reset halt
-(gdb) break main
-(gdb) continue
-```
+---
 
 ### 📚 文档
 
@@ -273,87 +494,37 @@ arm-none-eabi-gdb build/zephyr/zephyr.elf
 | **探针配置** | [references/probe_configs.md](references/probe_configs.md) | - |
 | **芯片目标** | [references/chip_targets.md](references/chip_targets.md) | - |
 
-### 🔧 脚本
-
-| 脚本 | 说明 |
-|------|------|
-| `scripts/flash_fw.sh` | 烧录固件 |
-| `scripts/mass_erase.sh` | 批量擦除芯片 |
-| `scripts/read_regs.sh` | 交互式寄存器读取器 |
-| `scripts/find_scripts.sh` | 自动检测 OpenOCD 脚本目录 |
-
-### 🐛 支持的硬件
-
-#### 调试探针
-
-| 探针 | 速度 | 接口 |
-|------|------|------|
-| ST-LINK V3 | **4 MHz** | SWD + VCP + Bridge |
-| J-Link Pro | 12 MHz | JTAG/SWD |
-| CMSIS-DAP v2 | 3.5 MHz | SWD + CDC |
-| FTDI FT2232H | 16 MHz | JTAG/SWD |
-
-👉 **完整列表**: 参见 [references/probe_configs.md](references/probe_configs.md)
-
-#### 目标芯片
-
-| 厂商 | 系列 | 目标配置 |
-|------|------|----------|
-| ST | STM32F1 | `target/stm32f1x.cfg` |
-| ST | STM32F4 | `target/stm32f4x.cfg` |
-| ST | STM32H7 | `target/stm32h7x.cfg` |
-| NXP | i.MX RT1064 | `target/imxrt1064.cfg` |
-| Nordic | nRF52840 | `target/nrf52840.cfg` |
-
-👉 **完整列表**: 参见 [references/chip_targets.md](references/chip_targets.md)
-
-### 💡 示例工作流
-
-#### 烧录并调试 STM32F103C8T6
-
-```bash
-# 步骤 1：烧录固件
-./scripts/flash_fw.sh -i stlink -t stm32f1x -f Project.axf
-
-# 步骤 2：读取 GPIOA 寄存器
-./scripts/read_regs.sh -i stlink -t stm32f1x
-# 在交互式菜单中，选择 "1. 读取内存"
-# 输入：mdw 0x4001080C 1
-
-# 步骤 3：诊断芯片是否崩溃
-openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "reset halt; mdw 0xE000ED28 1; shutdown"
-```
-
-#### 用 J-Link 调试 nRF52840
-
-```bash
-# 启动 GDB 服务器
-openocd -f interface/jlink.cfg -f target/nrf52840.cfg
-
-# 在另一个终端
-arm-none-eabi-gdb firmware.elf
-(gdb) target remote localhost:3333
-(gdb) monitor reset halt
-(gdb) break ble_stack_init
-(gdb) continue
-```
+---
 
 ### 🤝 贡献
 
-欢迎贡献！
+欢迎贡献！这个技能包的目标是让 AI 成为**终极嵌入式调试专家**。
 
-1. Fork 本仓库
-2. 创建功能分支（`git checkout -b feature/新功能名称`）
-3. 提交更改（`git commit -m '添加新功能'`）
-4. 推送到分支（`git push origin feature/新功能名称`）
-5. 创建 Pull Request
+贡献想法：
+
+- 🆕 添加更多芯片支持（ESP32、RISC-V 等）
+- 🆕 添加更多工作流模板（性能分析、功耗分析等）
+- 🆕 改进故障诊断（添加更多模式）
+- 🆕 添加常用任务的 TCL 脚本
+- 📝 改进文档（更多示例、图表等）
+
+---
 
 ### 📄 许可证
 
 MIT 许可证 - 详见 [LICENSE](LICENSE)。
 
-### 🆘 支持
+---
 
-- **GitHub Issues**: https://github.com/YOUR_USERNAME/openocd-debug-skill/issues
+### 🙏 支持
+
+- **GitHub Issues**: https://github.com/leiteer/openocd-debug-skill/issues
 - **OpenOCD 文档**: http://openocd.org/doc/doxygen/index.html
 - **WorkBuddy 社区**: https://workbuddy.ai/community
+
+---
+
+<p align="center">
+  <strong>🤖 Made for AI, by AI, with ❤️ for embedded developers.</strong><br>
+  <strong>🤖 为 AI 而生，由 AI 制作，为嵌入式开发者献上 ❤️。</strong>
+</p>
